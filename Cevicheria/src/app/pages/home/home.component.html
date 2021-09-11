@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title ion-text-wrap">
+      El Pez de Oro
+    </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon color="light" slot="icon-only" name="menu-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/carrito']" >
+        <ion-icon color="light" slot="icon-only" name="cart-sharp"></ion-icon>
+      </ion-button>
+      <ion-badge color="danger">{{cantidad}}</ion-badge>
+      <ion-button [routerLink]="['/perfil']" >
+        <ion-icon color="light" slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-img class="image" src="../../assets/images/banner.jpg"></ion-img>
+
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-searchbar></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="m-3">
+    <ion-segment scrollable mode="ios" (ionChange)="changeSegment($event)">
+      <ion-segment-button value="Todo">
+        <ion-label class="seg">Todo</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Combo">
+        <ion-label class="seg">Combo</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Ceviche">
+        <ion-label class="seg">Ceviche</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Criollo">
+        <ion-label class="seg">Criollo</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+
+<div  *ngFor="let producto of productos">
+  <app-producto [producto] = producto></app-producto>
+</div>
+</ion-content>

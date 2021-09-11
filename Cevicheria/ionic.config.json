@@ -1,0 +1,7 @@
+{
+  "name": "Cevicheria",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

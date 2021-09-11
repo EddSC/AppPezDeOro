@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Mantenimiento de Carta/Plato
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon color="light" slot="icon-only" name="menu-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+  <ion-content>
+  <div style="text-align: end; margin: 10px;">
+    <ion-button (click)="nuevo()" class="normal" color="primary">nuevo</ion-button>
+  </div>
+
+  <div *ngIf="enableNewProducto">
+    <h3 class="subtitulo encabezado">Ingresar Datos del Plato</h3>
+
+    <ion-item>
+      <ion-buttons slot="end">
+        <ion-button (click)="enableNewProducto = false">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+        <ion-button (click)="guardarProducto()">
+          <ion-icon color="primary" slot="icon-only" name="save-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Nombre:
+      </ion-label>
+      <ion-input [(ngModel)]="newProducto.nombre" class="normal" type="string" inputmode="text">
+      </ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Precio normal:
+      </ion-label>
+      <ion-input [(ngModel)]="newProducto.precioNormal" class="normal" type="number" inputmode="numeric">
+      </ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Precio reducido:
+      </ion-label>
+      <ion-input [(ngModel)]="newProducto.precioReducido" class="normal" type="number" inputmode="numeric">
+      </ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="normal" >
+        Tipo:
+      </ion-label>
+      <ion-select [(ngModel)]="newProducto.tipo" class="normal" placeholder="Seleccione un tipo">
+        <ion-select-option value="Ceviche">Ceviche</ion-select-option>
+        <ion-select-option value="Criollo">Criollo</ion-select-option>
+        <ion-select-option value="Combo">Combo</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="normal" position="floating">Description</ion-label>
+      <ion-textarea [(ngModel)]="newProducto.descripcion" class="normal" type="string" inputmode="text"></ion-textarea>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label class="normal">
+        Foto:
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button>
+          <label for="file-upload">
+            <ion-icon slot="icon-only" name="images"></ion-icon>
+          </label>
+          <input (change)="newImageUpload($event)" id="file-upload" style="display: none;" type="file" accept="image/*">
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <img class="image" [src]="newProducto.foto">
+    </ion-item>
+  </div>
+
+  <ion-card>
+    <h1 class="subtitulo encabezado">Lista de Platos</h1>
+    <ion-item *ngFor="let producto of productos">
+      <ion-label>{{producto.nombre}}</ion-label>
+      <ion-buttons>
+        <ion-button (click)="newProducto = producto; enableNewProducto = true;">
+          <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
+        </ion-button>
+        <ion-button (click)="deleteProducto(producto)">
+          <ion-icon slot="icon-only" color="danger" name="trash-bin"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

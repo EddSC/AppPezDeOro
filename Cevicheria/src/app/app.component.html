@@ -1,0 +1,49 @@
+<ion-app>
+  <ion-split-pane contentId="main">
+    <!--  the side menu  -->
+    <ion-menu contentId="main" menuId="principal">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title class="subtitulo">Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      
+      
+      <ion-content>
+        <ion-menu-toggle autoHide=false>
+          <ion-item button=true detail=true [routerLink]="['/']">
+            <ion-label class="normal">Menu Carta</ion-label>
+            <ion-icon slot="start" name="storefront-sharp"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide=false *ngIf="!admin">
+          <ion-item button=true detail=true [routerLink]="['/carrito']">
+            <ion-label class="normal">Carrito</ion-label>
+            <ion-icon slot="start" name="cart-sharp"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide=false *ngIf="admin">
+          <ion-item button=true detail=true [routerLink]="['/set-productos']">
+            <ion-label class="normal">Mantenimiento de la Carta</ion-label>
+            <ion-icon slot="start" name="create-sharp"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide=false *ngIf="!admin">
+          <ion-item button=true detail=true [routerLink]="['/mis-pedidos']">
+            <ion-label class="normal">Mis Pedidos</ion-label>
+            <ion-icon slot="start" name="bag-handle-sharp"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle autoHide=false *ngIf="admin">
+          <ion-item button=true detail=true [routerLink]="['/pedidos']">
+            <ion-label class="normal">Pedidos</ion-label>
+            <ion-icon slot="start" name="bag-handle-sharp"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-content>
+    </ion-menu>
+  
+    <!-- the main content -->
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

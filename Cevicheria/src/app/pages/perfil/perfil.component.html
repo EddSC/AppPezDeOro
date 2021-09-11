@@ -1,0 +1,289 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Perfil
+    </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon slot="icon-only" name="menu-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/perfil']" >
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="!uid.length">
+    <h3 class="subtitulo encabezado text-white">Registra tus Datos</h3>
+      <ion-item class="fondo">
+        <ion-note color="warning"  class="m-3" class="texto">
+          ¡Advertencia!
+          <p class="m-3">Los datos registrados seran tomados como referencia para ponernos en contacto.</p>
+        </ion-note>
+
+      </ion-item>
+
+    
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Email:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.email" class="normal" type="string" inputmode="email">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-label class="normal" position="floating">
+      Nombres:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.nombre" class="normal" type="string" inputmode="text"  maxlength="30">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-label class="normal" position="floating">
+      Apellidos:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.apellido" class="normal" type="string" inputmode="text"  maxlength="40">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-label class="normal" position="floating">
+      Celular:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.celular" class="normal" type="tel"  maxlength="9">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Password:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.contrasena" class="normal" type="password">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-label>Cobertura</ion-label>
+    <ion-select interface="popover" [(ngModel)]="cliente.covertura" >
+      <ion-select-option value="Villa Maria del Triunfo">Villa Maria del Triunfo</ion-select-option>
+      <ion-select-option value="Surquillo">Surquillo</ion-select-option>
+      <ion-select-option value="Surco">Surco</ion-select-option>
+      <ion-select-option value="Barranco">Barranco</ion-select-option>
+      <ion-select-option value="Jose Gálvez">Jose Gálvez</ion-select-option>
+      <ion-select-option value="Chorrillos">Chorrillos</ion-select-option>
+      <ion-select-option value="San Juan de Miraflores">San Juan de Miraflores</ion-select-option>
+      <ion-select-option value="San Borja sur">San Borja sur</ion-select-option>
+      <ion-select-option value="San Borja Norte">San Borja Norte</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-label class="normal" position="floating">
+      Referencia de Ubicación:
+    </ion-label>
+    <ion-input [(ngModel)]="cliente.referencia" class="normal" type="string" inputmode="text">
+    </ion-input>
+  </ion-item>
+
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-list>
+      <ion-radio-group value="" [(ngModel)]="cliente.MetodoPago">
+        <ion-list-header>
+          <ion-label>Método de Pago</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-label>Tarjeta de crédito o débito</ion-label>
+          <ion-radio slot="start" value="Tarjeta de crédito o débito"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Yape</ion-label>
+          <ion-radio slot="start" value="Yape"></ion-radio>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Efectivo contra entrega</ion-label>
+          <ion-radio slot="start" value="Efectivo contra entrega"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </ion-item>
+  
+  <ion-item *ngIf=!ingresarEnable>
+    <ion-label class="normal">
+      Foto referencial:
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-button>
+        <label for="file-upload">
+          <ion-icon slot="icon-only" name="images"></ion-icon>
+        </label>
+        <input (change)="newImageUpload($event)" id="file-upload" style="display: none;" type="file" accept="image/*">
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+  <ion-item *ngIf=!ingresarEnable>
+    <img class="image" [src]="cliente.foto">
+  </ion-item>
+  
+  <div style="margin: 10px;">
+    <ion-button *ngIf=!ingresarEnable (click)="registrarse()" class="normal" expand="block" color="primary">REGISTRATE</ion-button>
+    <ion-button *ngIf=ingresarEnable (click)="ingresar()" class="normal" expand="block" color="primary">ENTRAR</ion-button>
+  </div>
+  
+  <div style="margin: 60px;" class="text-white">
+    <ion-button *ngIf=!ingresarEnable (click)="ingresarEnable = true" class="normal" expand="block" color="success">Iniciar Sesion</ion-button>
+    <ion-button *ngIf=ingresarEnable (click)="ingresarEnable = false" class="normal" expand="block" color="success">Crear cuenta nueva</ion-button>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div *ngIf="uid.length">
+
+    <h3 class="subtitulo encabezado">Datos Personales</h3>
+    <ion-item class="fondo">
+      <ion-note color="warning" class="m-3" class="texto" >
+        ¡Advertencia!
+        <p class="m-3">Manten actualizado tus datos, seran tomados como referencia para ponernos en contato.</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label class="normal">
+        Email: {{cliente.email}}
+      </ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Nombres:
+      </ion-label>
+      <ion-input [(ngModel)]="cliente.nombre" class="normal" type="string" inputmode="text" maxlength="30">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Apellidos:
+      </ion-label>
+      <ion-input [(ngModel)]="cliente.apellido" class="normal" type="string" inputmode="text" maxlength="40">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Celular:
+      </ion-label>
+      <ion-input [(ngModel)]="cliente.celular" class="normal" type="tel" maxlength="9">
+      </ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="normal">
+        Password: {{cliente.contrasena}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Cobertura</ion-label>
+      <ion-select interface="popover" [(ngModel)]="cliente.covertura">
+        <ion-select-option value="Villa Maria del Triunfo">Villa Maria del Triunfo</ion-select-option>
+        <ion-select-option value="Surquillo">Surquillo</ion-select-option>
+        <ion-select-option value="Surco">Surco</ion-select-option>
+        <ion-select-option value="Barranco">Barranco</ion-select-option>
+        <ion-select-option value="Jose Gálvez">Jose Gálvez</ion-select-option>
+        <ion-select-option value="Chorrillos">Chorrillos</ion-select-option>
+        <ion-select-option value="San Juan de Miraflores">San Juan de Miraflores</ion-select-option>
+        <ion-select-option value="San Borja sur">San Borja sur</ion-select-option>
+        <ion-select-option value="San Borja Norte">San Borja Norte</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    
+    
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Referencia de Ubicación:
+      </ion-label>
+      <ion-input [(ngModel)]="cliente.referencia" class="normal" type="string" inputmode="text">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-list>
+        <ion-radio-group value="" [(ngModel)]="cliente.MetodoPago">
+          <ion-list-header>
+            <ion-label>Método de Pago</ion-label>
+          </ion-list-header>
+      
+          <ion-item>
+            <ion-label>Tarjeta de crédito o débito</ion-label>
+            <ion-radio slot="start" value="Tarjeta de crédito o débito"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Yape</ion-label>
+            <ion-radio slot="start" value="Yape"></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Efectivo contra entrega</ion-label>
+            <ion-radio slot="start" value="Efectivo contra entrega"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label class="normal">
+        Foto referencial:
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button>
+          <label for="file-upload">
+            <ion-icon slot="icon-only" name="images"></ion-icon>
+          </label>
+          <input (change)="newImageUpload($event)" id="file-upload" style="display: none;" type="file" accept="image/*">
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <img class="image" [src]="cliente.foto">
+    </ion-item>
+
+    <div style="margin: 10px;">
+      <ion-button (click)="guardarUser()" class="normal" expand="block" color="primary">Actualizar Datos</ion-button>
+    </div>
+    <div style="margin: 10px;">
+      <ion-button (click)="salir()" class="normal" expand="block" color="danger">Salir</ion-button>
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+</ion-content>
